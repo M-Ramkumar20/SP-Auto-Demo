@@ -1,0 +1,153 @@
+Raw_Input,Valid_JSON,LLM_Response
+"S1) COUNTRY
+In which country do you live?  
+US only
+",1,"{""question_type"": ""Single choice"",""question_id"": ""S1"",""question_title"": ""COUNTRY"",""question_text"": ""In which country do you live?"",""entry_condition"": ""US only"",""programming_instruction"": """",""min"": """",""max"": """",""response_options"": []}"
+"
+S2) STATE
+In what state do you live?
+",1,"{""question_type"": ""Single choice"",""question_id"": ""S2"",""question_title"": ""STATE"",""question_text"": ""In what state do you live?"",""entry_condition"": """",""programming_instruction"": """",""min"": """",""max"": """",""response_options"": []}"
+"
+Balance to census / Create variable xRegion single punch:
+Northeast 
+Midwest 
+West 
+South 
+",0,{}
+"
+S3) GENDER
+What is your current gender identity? 
+Male
+Female
+Gender fluid or non-binary
+Prefer not to answer
+",1,"{""question_type"": ""Single choice"",""question_id"": ""S3"",""question_title"": ""GENDER"",""question_text"": ""What is your current gender identity?"",""entry_condition"": """",""programming_instruction"": """",""min"": """",""max"": """",""response_options"": [{""response_text"": ""Male"",""response_id"": ""1"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Female"",""response_id"": ""2"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Gender fluid or non-binary"",""response_id"": ""3"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Prefer not to answer"",""response_id"": ""4"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}]}"
+"
+50/50 male/female split
+Create single punch xGender to Female or Male 
+Assign Gender Fluid and Prefer not to answer to either Female or Male randomly
+",0,{}
+"
+S4) AGE
+What is your age?
+Ages 14-77 
+",1,"{""question_type"": ""Open numeric"",""question_id"": ""S4"",""question_title"": ""AGE"",""question_text"": ""What is your age?"",""entry_condition"": """",""programming_instruction"": """",""min"": ""14"",""max"": ""77"",""response_options"": []}"
+"
+Create xAge single punch variables: 
+GenZ (14-26)
+Millennials (27-42)
+GenX (43-58)
+Boomers (59-77)
+",0,{}
+"
+S5) OCCUPATION
+Which of the following best describes your industry or occupation?
+Do not randomize
+Advertising 
+Banking
+Consumer packaged goods
+Education
+Food or beverage manufacturer, wholesaler or distributor
+Government
+Healthcare/Medical
+Homemaker
+Journalism
+Legal Services
+Market research 
+Exclude Advertising / Public Relations, Marketing, Market Research, 
+",1,"{""question_type"": ""Single choice"",""question_id"": ""S5"",""question_title"": ""OCCUPATION"",""question_text"": ""Which of the following best describes your industry or occupation?"",""entry_condition"": ""Do not randomize"",""programming_instruction"": """",""min"": """",""max"": """",""response_options"": [{""response_text"": ""Advertising"",""response_id"": ""1"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Banking"",""response_id"": ""2"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Consumer packaged goods"",""response_id"": ""3"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Education"",""response_id"": ""4"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Food or beverage manufacturer, wholesaler or distributor"",""response_id"": ""5"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Government"",""response_id"": ""6"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Healthcare/Medical"",""response_id"": ""7"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Homemaker"",""response_id"": ""8"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Journalism"",""response_id"": ""9"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Legal Services"",""response_id"": ""10"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Market research"",""response_id"": ""11"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}]}"
+"
+S6) TECH SAVVINESS 
+When it comes to your attitudes and behaviors towards technology and gadgets, which of the following best describes you?
+I am very comfortable using technology and gadgets on my own
+I am comfortable using technology and gadgets, but need some assistance
+I am not very comfortable using technology and gadgets, and tend to ask for assistance
+I am not at all comfortable using technology and gadgets, and always ask for assistance
+",1,"{""question_type"": ""Single choice"",""question_id"": ""S6"",""question_title"": ""TECH SAVVINESS"",""question_text"": ""When it comes to your attitudes and behaviors towards technology and gadgets, which of the following best describes you?"",""entry_condition"": """",""programming_instruction"": """",""min"": """",""max"": """",""response_options"": [{""response_text"": ""I am very comfortable using technology and gadgets on my own"",""response_id"": ""1"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""I am comfortable using technology and gadgets, but need some assistance"",""response_id"": ""2"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""I am not very comfortable using technology and gadgets, and tend to ask for assistance"",""response_id"": ""3"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""I am not at all comfortable using technology and gadgets, and always ask for assistance"",""response_id"": ""4"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}]}"
+"
+Survey – Only qualifying respondents from Screener phase participate in this session  
+Your responses will be anonymous to our survey sponsor but each of your thoughts will be considered carefully. 
+Thanks for your time and your ideas!
+",0,{}
+"
+TECH Device and App FAMILIARITY
+What is your level of familiarity with Wearable Fitness Trackers?
+Have not heard of this
+Have heard of it, but don’t understand it
+Have heard of, and have some understanding of it
+Have a complete understanding of this product or app
+",1,"{""question_type"": ""Single choice"",""question_id"": ""TECH"",""question_title"": ""TECH Device and App FAMILIARITY"",""question_text"": ""What is your level of familiarity with Wearable Fitness Trackers?"",""entry_condition"": """",""programming_instruction"": """",""min"": """",""max"": """",""response_options"": [{""response_text"": ""Have not heard of this"",""response_id"": ""1"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Have heard of, but don't understand it"",""response_id"": ""2"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Have heard of, and have some understanding of it"",""response_id"": ""3"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Have a complete understanding of this product or app"",""response_id"": ""4"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}]}"
+"
+Thank you for your time! We have a few more questions for classification purposes.
+",0,{}
+"
+Additional Demo Information 
+D1) MARITAL STATUS
+What is your marital status?
+Single, never married
+Living with partner
+Married
+Separated/Divorced/Widowed
+",1,"{""question_type"": ""Single choice"",""question_id"": ""D1"",""question_title"": ""MARITAL STATUS"",""question_text"": ""What is your marital status?"",""entry_condition"": """",""programming_instruction"": """",""min"": """",""max"": """",""response_options"": [{""response_text"": ""Single, never married"",""response_id"": ""1"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Living with partner"",""response_id"": ""2"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Married"",""response_id"": ""3"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Separated/Divorced/Widowed"",""response_id"": ""4"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}]}"
+"
+D2) HISPANIC
+Are you of Hispanic or Latino descent?
+Yes
+No
+",1,"{""question_type"": ""Single choice"",""question_id"": ""D2"",""question_title"": ""HISPANIC"",""question_text"": ""Are you of Hispanic or Latino descent?"",""entry_condition"": """",""programming_instruction"": """",""min"": """",""max"": """",""response_options"": [{""response_text"": ""Yes"",""response_id"": ""1"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""No"",""response_id"": ""2"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}]}"
+"
+D3) ETHNICITY
+What is your ethnicity? 
+Asian or Pacific Islander
+Black or African American
+Caucasian / White
+Native American, Eskimo or Aleut
+Mixed
+Other
+",1,"{""question_type"": ""Single choice"",""question_id"": ""D3"",""question_title"": ""ETHNICITY"",""question_text"": ""What is your ethnicity?"",""entry_condition"": """",""programming_instruction"": """",""min"": """",""max"": """",""response_options"": [{""response_text"": ""Asian or Pacific Islander"",""response_id"": ""1"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Black or African American"",""response_id"": ""2"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Caucasian / White"",""response_id"": ""3"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Native American, Eskimo or Aleut"",""response_id"": ""4"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Mixed"",""response_id"": ""5"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Other"",""response_id"": ""6"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}]}"
+"
+D4) KIDS 
+Are there any children under age 18 living in your household?
+Yes
+No
+",1,"{""question_type"": ""Single choice"",""question_id"": ""D4"",""question_title"": ""KIDS"",""question_text"": ""Are there any children under age 18 living in your household?"",""entry_condition"": """",""programming_instruction"": """",""min"": """",""max"": """",""response_options"": [{""response_text"": ""Yes"",""response_id"": ""1"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""No"",""response_id"": ""2"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}]}"
+"
+Ask D4A if selected “Yes” in D4
+D4A) KIDS AGE
+Are there any children under age 18 living in your household?
+Yes
+No
+",1,"{""question_type"": ""Single choice"",""question_id"": ""D4A"",""question_title"": ""KIDS AGE"",""question_text"": ""Are there any children under age 18 living in your household?"",""entry_condition"": ""Ask D4A if selected “Yes” in D4"",""programming_instruction"": """",""min"": """",""max"": """",""response_options"": [{""response_text"": ""Yes"",""response_id"": ""1"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""No"",""response_id"": ""2"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}]}"
+"
+D5) EDUCATION
+What is the highest level of education you have completed?
+Middle School 
+High School  
+Some College / No Degree  
+Associates Degree
+Bachelors Degree
+Graduate Degree
+",1,"{""question_type"": ""Single choice"",""question_id"": ""D5"",""question_title"": ""EDUCATION"",""question_text"": ""What is the highest level of education you have completed?"",""entry_condition"": """",""programming_instruction"": """",""min"": """",""max"": """",""response_options"": [{""response_text"": ""Middle School"",""response_id"": ""1"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""High School"",""response_id"": ""2"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Some College / No Degree"",""response_id"": ""3"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Associates Degree"",""response_id"": ""4"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Bachelors Degree"",""response_id"": ""5"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Graduate Degree"",""response_id"": ""6"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}]}"
+"
+D6) EMPLOYMENT
+Which of the following best describes your employment status? 
+Employed Full Time (at least 35 hours per week)
+Employed Part Time (less than 35 hours per week)
+Self-employed 
+Unemployed
+Retired
+Student
+Prefer not to answer
+",1,"{""question_type"": ""Single choice"",""question_id"": ""D6"",""question_title"": ""EMPLOYMENT"",""question_text"": ""Which of the following best describes your employment status?"",""entry_condition"": """",""programming_instruction"": """",""min"": """",""max"": """",""response_options"": [{""response_text"": ""Employed Full Time (at least 35 hours per week)"",""response_id"": ""1"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Employed Part Time (less than 35 hours per week)"",""response_id"": ""2"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Self-employed"",""response_id"": ""3"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Unemployed"",""response_id"": ""4"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Retired"",""response_id"": ""5"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Student"",""response_id"": ""6"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Prefer not to answer"",""response_id"": ""7"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}]}"
+"
+D7) HHI
+Which of the following best describes your year-end 2022 annual household income?
+Less than $20,000 
+$20,000 - $29,999 
+$30,000 - $39,999 
+$40,000 - $49,999 
+$50,000 - $59,999
+$60,000 or more
+Prefer not to answer 
+",1,"{""question_type"": ""Single choice"",""question_id"": ""D7"",""question_title"": ""HHI"",""question_text"": ""Which of the following best describes your year-end 2022 annual household income?"",""entry_condition"": """",""programming_instruction"": """",""min"": """",""max"": """",""response_options"": [{""response_text"": ""Less than $20,000"",""response_id"": ""1"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""$20,000 - $29,999"",""response_id"": ""2"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""$30,000 - $39,999"",""response_id"": ""3"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""$40,000 - $49,999"",""response_id"": ""4"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""$50,000 - $59,999"",""response_id"": ""5"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""$60,000 or more"",""response_id"": ""6"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}, {""response_text"": ""Prefer not to answer"",""response_id"": ""7"",""anchor"": ""False"",""other_specify"": ""False"",""mutually_exclusive"": ""False"",""terminate"": ""False""}]}"
+,0,{}
