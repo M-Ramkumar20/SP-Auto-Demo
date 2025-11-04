@@ -29,3 +29,10 @@ JSON extraction from survey questionnaires using llama.cpp + LoRA.
 - Rapid_DEMO.py: main script
 - Data_export.csv: simple export (input, valid, response)
 - Output_df.csv: detailed metrics (latency, tokens, reason)
+
+
+
+
+## Debugging/Fixed issues:
+1. LLM hallucinate and returns multiple JSON objects. Fixed with single JSON extract function.
+2. For non questions - LLM sometime returns empty dict along with some explanations, breaking the JSON load. Fixed by passing a criteria for non questions in extract function.
