@@ -32,9 +32,13 @@ from datetime import datetime
 
 
 
+## Make it True to print the debugging statements.
+debug = False
+
+
 # ------------------------------- Config --------------------------------
-MODEL_PATH = PASS THE GGUF PATH.
-## MODEL_PATH = "../Artifacts/FT_Model_with_LoRA-V1-Quant/merged-q4-k-m.gguf"
+# MODEL_PATH = PASS THE GGUF PATH.
+MODEL_PATH = "../Artifacts/FT_Model_with_LoRA-V1-Quant/merged-q4-k-m.gguf"
 MAX_NEW_TOKENS = 400
 TEMPERATURE = 0.0
 REQUIRED_KEYS = [
@@ -130,6 +134,11 @@ def extract_single_json_balanced(t: str) -> tuple[dict,str]:
     if end < 0:
         return {}, "unbalanced_braces"
     core = t[start:end+1]
+    if debug:
+        print("\nCore is:", core)
+
+    if end == 1:
+        return core, "Non question"
     try:
         obj = json.loads(core)
     except Exception:
@@ -162,7 +171,7 @@ def auto_repair_once(text: str) -> tuple[str, list[str]]:
 
 @st.cache_resource
 def load_llm():
-    llm = Llama(model_path=MODEL_PATH, n_ctx=2048, n_threads=0, verbose=0)
+    llm = Llama(model_path=MODEL_PATH, n_ctx=3048, n_threads=0, verbose=0)
     return llm
 
 
@@ -170,27 +179,34 @@ def run_item(llm, item:dict):
     prompt = build_prompt(item)
     token_limit = MAX_NEW_TOKENS
     t0 = time.time()
+    if debug:
+        print("\nInput is: ", item)
     out = llm(prompt, max_tokens = token_limit, temperature=TEMPERATURE, stop=["Input:"], echo=False)
     latency_ms = (time.time() - t0) * 1000.0
     text = out["choices"][0]["text"].strip()
 
     ## Testing the response, if json is incomplete retry once with higher max_tokens.
     obj, err = extract_single_json_balanced(text)
+    if debug:
+        print("\nJSON Error: ", err)
     if err == "unbalanced_braces":
-        token_limit += 500
+        token_limit += 1500
         out = llm(prompt, max_tokens = token_limit, temperature=TEMPERATURE, stop=["Input:"], echo=False)
         latency_ms = (time.time() - t0) * 1000.0
         text = out["choices"][0]["text"].strip()
 
     ## Passed the text to a func which cleans and extract the 1st json object even if we have multiple jsons. 
     reasons = []
+    if debug:
+        print("\nRAW TEXT is: ", text)
     gen, rfix = auto_repair_once(text)
     reasons += rfix
-    
-    # print(gen, rfix)
+
+    if debug:
+        print("\nResponse is: ", gen)
     ok_req, r_req = v_required(gen, REQUIRED_KEYS)
     # ok_opt, r_opt = v_options_order(gen, src_opts)
-    
+
     ok = (rfix == "") and ok_req
 
     if not ok:
