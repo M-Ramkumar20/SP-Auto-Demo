@@ -149,7 +149,12 @@ def extract_single_json_balanced(t: str) -> tuple[dict,str]:
     return obj, ""
 
 def v_required(obj: str, req: list[str]) -> tuple[bool,str]:
-    obj = json.loads(obj)
+    # obj = json.loads(obj)
+    if debug:
+        print("v_required obj is: ", obj)
+        print("v_required type is: ", type(obj))
+    if (obj == "{}"):
+        return True, "non_question"
     if not isinstance(obj, dict):
         return False, "not_dict"
     miss = [k for k in req if k not in obj]
@@ -160,8 +165,10 @@ def auto_repair_once(text: str) -> tuple[str, list[str]]:
     t = normalize_text(text)
     # trim to balanced object
     obj, err = extract_single_json_balanced(t)
+    # print("auto func extract err is : ",err)
     if err == "":
-        return t, ""
+        # return t, ""
+        return obj, ""
     if obj == "{}":
         return obj, ["non_question"]
     return t, ["quotes_norm", err]
@@ -171,7 +178,7 @@ def auto_repair_once(text: str) -> tuple[str, list[str]]:
 
 @st.cache_resource
 def load_llm():
-    llm = Llama(model_path=MODEL_PATH, n_ctx=3048, n_threads=0, verbose=0)
+    llm = Llama(model_path=MODEL_PATH, n_ctx=3000, n_threads=0, verbose=0)
     return llm
 
 
@@ -180,18 +187,19 @@ def run_item(llm, item:dict):
     token_limit = MAX_NEW_TOKENS
     t0 = time.time()
     if debug:
-        print("\nInput is: ", item)
-    out = llm(prompt, max_tokens = token_limit, temperature=TEMPERATURE, stop=["Input:"], echo=False)
+        print("\n\n------------------\nInput is: ", item)
+    out = llm(prompt, max_tokens = token_limit, temperature=TEMPERATURE, top_k=0, top_p=1.0, stop=["Input:"], echo=False)
     latency_ms = (time.time() - t0) * 1000.0
     text = out["choices"][0]["text"].strip()
 
     ## Testing the response, if json is incomplete retry once with higher max_tokens.
-    obj, err = extract_single_json_balanced(text)
+    t = normalize_text(text)
+    obj, err = extract_single_json_balanced(t)
     if debug:
         print("\nJSON Error: ", err)
     if err == "unbalanced_braces":
-        token_limit += 1500
-        out = llm(prompt, max_tokens = token_limit, temperature=TEMPERATURE, stop=["Input:"], echo=False)
+        token_limit += 1000
+        out = llm(prompt, max_tokens = token_limit, temperature=TEMPERATURE, top_k=0, top_p=1.0, stop=["Input:"], echo=False)
         latency_ms = (time.time() - t0) * 1000.0
         text = out["choices"][0]["text"].strip()
 
@@ -207,7 +215,8 @@ def run_item(llm, item:dict):
     ok_req, r_req = v_required(gen, REQUIRED_KEYS)
     # ok_opt, r_opt = v_options_order(gen, src_opts)
 
-    ok = (rfix == "") and ok_req
+    # if debug:
+    ok = (rfix == "" or rfix == ["non_question"]) and ok_req
 
     if not ok:
         if r_req: reasons.append(r_req)
@@ -224,7 +233,6 @@ def run_item(llm, item:dict):
         json_obj=gen,
         response=text
     )
-
     return resp
 
 
@@ -276,8 +284,8 @@ if items:
             rows.append(run_item(llm, item))
         st.write("End: ", datetime.now())
         df = pd.DataFrame(rows)
-        
-        st.dataframe(df[["raw_input", "valid", "latency_ms", "max_token_limit", "used_tokens_out", "reason", "json_obj"]])
+
+        st.dataframe(df[["raw_input", "valid", "latency_ms", "max_token_limit", "used_tokens_out", "reason", "json_obj"]].astype(str))
 
         st.subheader("Run report")
 
