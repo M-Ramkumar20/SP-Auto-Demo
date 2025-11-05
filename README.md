@@ -36,3 +36,4 @@ JSON extraction from survey questionnaires using llama.cpp + LoRA.
 ## Debugging/Fixed issues:
 1. LLM hallucinate and returns multiple JSON objects. Fixed with single JSON extract function.
 2. For non questions - LLM sometime returns empty dict along with some explanations, breaking the JSON load. Fixed by passing a criteria for non questions in extract function.
+3. Consider the non questions response of {} as valid, previously it was invalid.
