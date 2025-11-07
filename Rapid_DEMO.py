@@ -146,15 +146,17 @@ def extract_single_json_balanced(t: str) -> tuple[dict,str]:
     tail = t[end+1:].lstrip()
     if tail.startswith("{"):
         return {}, "multi_obj_tail"
-    return obj, ""
+    return core, ""
 
 def v_required(obj: str, req: list[str]) -> tuple[bool,str]:
-    # obj = json.loads(obj)
+    if (obj == "{}"):
+        return True, "non_question"
+
+    obj = json.loads(obj)
     if debug:
         print("v_required obj is: ", obj)
         print("v_required type is: ", type(obj))
-    if (obj == "{}"):
-        return True, "non_question"
+
     if not isinstance(obj, dict):
         return False, "not_dict"
     miss = [k for k in req if k not in obj]
@@ -177,8 +179,8 @@ def auto_repair_once(text: str) -> tuple[str, list[str]]:
 # ------------------------------------------------------------------------
 
 @st.cache_resource
-def load_llm():
-    llm = Llama(model_path=MODEL_PATH, n_ctx=3000, n_threads=0, verbose=0)
+def load_llm(ctx):
+    llm = Llama(model_path=MODEL_PATH, n_ctx=ctx, n_threads=0, verbose=0)
     return llm
 
 
@@ -251,9 +253,16 @@ use_demo = st.checkbox("Use built-in demo items (no upload)")
 
 if use_demo:
     items = [
-        {"text":"\nS1) COUNTRY\nIn which country do you live?  \nUS\nUK\nRussia\nIndia\n"},
-        {"text":"INTRO SCREEN Hi! We’re looking for opinions from a wide range of people, so let’s first see if you qualify!\nClick ‘Next’ to get started."},
-        {"text":"D3) ETHNICITY\nWhat is your ethnicity? \nAsian or Pacific Islander\nBlack or African American\nCaucasian / White\nNative American, Eskimo or Aleut\nMixed\nOther\n\n"},
+        {"text":"\nS2) STATE\nIn what state do you live?\n"},
+        {"text":"\nBalance to census / Create variable xRegion single punch:\nNortheast \nMidwest \nWest \nSouth \n"},
+        {"text":"S3) GENDER\nWhat is your current gender identity? \nMale\nFemale\nGender fluid or non-binary\nPrefer not to answer\n"},
+        {"text":"\nS4) AGE\nWhat is your age?\nAges 14-77\n"},
+        {"text":"\nCreate xAge single punch variables: \nGenZ (14-26)\nMillennials (27-42)\nGenX (43-58)\nBoomers (59-77)\n"},
+        {"text":"\nD4) KIDS \nAre there any children under age 18 living in your household?\nYes\nNo\n"},
+        {"text":"\nAsk D4A if selected “Yes” in D4\nD4A) KIDS AGE\nAre there any children under age 18 living in your household?\nYes\nNo\n"},
+        {"text":"\nAdditional Demo Information \nD1) MARITAL STATUS\nWhat is your marital status?\nSingle, never married\nLiving with partner\nMarried\nSeparated/Divorced/Widowed\n"},
+        {"text":"Show Q4 only for those evaluating the name ‘TEEM’\nTEEM PURCHASE IMPACT\n“Teem” was the name of a lemon-lime soft drink available in the 1960’s through the 1980’s. How does this knowledge affect your interest in purchasing a new lemon-lime soft drink called Teem?\nMuch more likely to purchase\nSomewhat more likely to purchase\nNo impact\nSomewhat less likely to purchase\nMuch less likely to purchase\n"},
+        {"text":"\nScreener–Only respondents who qualify on appropriate criteria proceed to main survey\n"}
     ]
 elif uploaded:
     with tempfile.NamedTemporaryFile(delete=False, suffix=".docx") as tmp_file:
@@ -278,7 +287,11 @@ with st.expander("Help (on-call)"):
 if items:
     if st.button("Run extraction"):
         st.write("Start: ", datetime.now())
-        llm = load_llm()
+        
+        if use_demo:
+            llm = load_llm(2048)
+        else:
+            llm = load_llm(3500)
         rows = []
         for item in items:
             rows.append(run_item(llm, item))
@@ -296,4 +309,3 @@ if items:
         ## Download full export
         export = [dict(Raw_Input=r['raw_input'], Valid_JSON=r['valid'], LLM_Response=r['json_obj']) for r in rows]
         st.download_button("Export data.csv", pd.DataFrame(export).to_csv(index=False), file_name="export.csv",on_click="ignore")
-
